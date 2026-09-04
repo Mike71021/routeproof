@@ -269,6 +269,7 @@ export async function audit(config: RouteProofConfig, options: AuditOptions = {}
         status = response?.status() ?? null;
         finalUrl = page.url();
         await page.waitForLoadState("networkidle", { timeout: Math.min(config.timeoutMs, 3_000) }).catch(() => {});
+        if (config.observeMs > 0) await delay(config.observeMs);
       } catch (error) {
         loadError = error instanceof Error ? error.message : String(error);
       }

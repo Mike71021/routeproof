@@ -9,4 +9,9 @@ describe("configuration", () => {
   it("rejects a negative crawl delay", () => {
     expect(() => mergeConfig(defaultConfig, { delayMs: -1 })).toThrow();
   });
+
+  it("validates the post-load observation window", () => {
+    expect(mergeConfig(defaultConfig, { observeMs: 2_000 }).observeMs).toBe(2_000);
+    expect(() => mergeConfig(defaultConfig, { observeMs: -1 })).toThrow();
+  });
 });

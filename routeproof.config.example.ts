@@ -5,6 +5,7 @@ export default defineConfig({
   maxDepth: 4,
   maxRoutes: 200,
   delayMs: 250,
+  observeMs: 1_000,
   exclude: ["/logout", "/api/*"],
   expectedRoutes: ["/", "/pricing", "/account/settings"],
   seedRoutes: ["/dashboard", "/account/settings"],

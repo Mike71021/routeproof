@@ -63,6 +63,11 @@ describe("browser audit", () => {
         response.end('<main data-testid="not-found"><h1>Page not found</h1></main>');
         return;
       }
+      if (request.url === "/late-error") {
+        response.writeHead(200, { "content-type": "text/html" });
+        response.end("<h1>Late error</h1><script>setTimeout(()=>console.error('late fixture error'),100)</script>");
+        return;
+      }
       response.writeHead(200, { "content-type": "text/html" });
       response.end('<a href="/healthy">Healthy</a><a href="/missing">Missing</a><a href="/broken-console">Console</a>');
     });
@@ -84,7 +89,8 @@ describe("browser audit", () => {
       outputDir: await mkdtemp(join(tmpdir(), "routeproof-")),
       screenshotOnError: false,
       expectedRoutes: ["/private"],
-      seedRoutes: ["/diagnostics", "/soft-missing"],
+      seedRoutes: ["/diagnostics", "/soft-missing", "/late-error"],
+      observeMs: 200,
     }, {
       onProgress: (event) => progress.push(`${event.phase}:${event.route}`),
     });
@@ -106,6 +112,7 @@ describe("browser audit", () => {
         message: expect.stringContaining("1 API failure(s), 1 uncaught error(s)"),
       }),
       expect.objectContaining({ code: "SOFT_404", route: "/soft-missing" }),
+      expect.objectContaining({ code: "CONSOLE_ERROR", route: "/late-error", detail: "late fixture error" }),
     ]));
     expect(result.findings.filter((finding) => finding.route === "/diagnostics")).toHaveLength(1);
     expect(progress).toEqual(expect.arrayContaining([
