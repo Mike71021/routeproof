@@ -1,0 +1,27 @@
+name: Bug report
+description: Report an incorrect result or crash
+title: "bug: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Include the affected route and the RouteProof output.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Minimal reproduction
+      description: Link to a public reproduction or provide the smallest possible fixture.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: RouteProof version
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Node.js version
+    validations:
+      required: true

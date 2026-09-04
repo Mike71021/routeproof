@@ -1,0 +1,17 @@
+name: New check proposal
+description: Propose a deterministic navigation check
+title: "check: "
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: Which real navigation failure should RouteProof detect?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected detection
+      description: Explain how it can be detected reliably without destructive interactions.
+    validations:
+      required: true

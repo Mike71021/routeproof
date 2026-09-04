@@ -1,0 +1,8 @@
+node_modules/
+dist/
+routeproof-report/
+routeproof.config.ts
+*.log
+.DS_Store
+.auth/
+*.storage-state.json
