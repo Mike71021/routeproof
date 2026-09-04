@@ -10,6 +10,7 @@ const schema = z.object({
   maxRoutes: z.number().int().min(1).max(10_000).default(200),
   timeoutMs: z.number().int().min(100).default(15_000),
   delayMs: z.number().int().min(0).max(60_000).default(0),
+  observeMs: z.number().int().min(0).max(60_000).default(0),
   exclude: z.array(z.string()).default(["/logout"]),
   include: z.array(z.string()).default([]),
   expectedRoutes: z.array(z.string()).default([]),

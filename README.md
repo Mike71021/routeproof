@@ -40,6 +40,7 @@ export default defineConfig({
   maxRoutes: 200,
   timeoutMs: 15_000,
   delayMs: 250,
+  observeMs: 1_000,
   exclude: ["/logout", "/api/*", "/^\\/preview\\//"],
   expectedRoutes: ["/", "/pricing", "/account/settings"],
   seedRoutes: ["/dashboard", "/account/settings"],
@@ -104,6 +105,7 @@ Options:
   --max-depth <number>      maximum crawl depth
   --timeout <milliseconds>  navigation timeout
   --delay <milliseconds>    delay between route scans
+  --observe <milliseconds>  observe each page after loading
   --no-screenshots          disable screenshots
   --fail-on-warnings        fail CI when warnings are found
 ```
@@ -147,6 +149,12 @@ Use `delayMs` or `--delay` for rate-limited APIs and sensitive preproduction env
 
 ```bash
 routeproof https://preprod.example.com --delay 500
+```
+
+Use `observeMs` or `--observe` to catch API and JavaScript failures triggered after the initial page load:
+
+```bash
+routeproof https://app.example.com --observe 2000
 ```
 
 ## Principles
