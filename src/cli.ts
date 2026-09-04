@@ -16,6 +16,7 @@ program
   .option("--max-routes <number>", "Maximum number of routes", Number)
   .option("--max-depth <number>", "Maximum crawl depth", Number)
   .option("--timeout <milliseconds>", "Navigation timeout", Number)
+  .option("--delay <milliseconds>", "Delay between route scans", Number)
   .option("--no-screenshots", "Disable screenshots")
   .option("--fail-on-warnings", "Exit with code 1 when warnings are found")
   .action(async (url: string | undefined, options) => {
@@ -27,6 +28,7 @@ program
         maxRoutes: options.maxRoutes ?? loaded.maxRoutes,
         maxDepth: options.maxDepth ?? loaded.maxDepth,
         timeoutMs: options.timeout ?? loaded.timeoutMs,
+        delayMs: options.delay ?? loaded.delayMs,
         screenshotOnError: options.screenshots,
       });
       if (!config.baseUrl) program.error("Provide a URL or set baseUrl in routeproof.config.ts");

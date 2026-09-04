@@ -39,6 +39,7 @@ export default defineConfig({
   maxDepth: 4,
   maxRoutes: 200,
   timeoutMs: 15_000,
+  delayMs: 250,
   exclude: ["/logout", "/api/*", "/^\\/preview\\//"],
   expectedRoutes: ["/", "/pricing", "/account/settings"],
   seedRoutes: ["/dashboard", "/account/settings"],
@@ -102,6 +103,7 @@ Options:
   --max-routes <number>     maximum number of routes
   --max-depth <number>      maximum crawl depth
   --timeout <milliseconds>  navigation timeout
+  --delay <milliseconds>    delay between route scans
   --no-screenshots          disable screenshots
   --fail-on-warnings        fail CI when warnings are found
 ```
@@ -140,6 +142,12 @@ RouteProof reads `/sitemap.xml` by default and follows same-origin sitemap index
 When an API failure, console messages, and an uncaught JavaScript exception happen during the same page load, RouteProof reports one `RUNTIME_INCIDENT` containing all correlated evidence instead of counting each symptom as an independent problem. Correlation is temporal evidence, not proof that the network failure caused the JavaScript error.
 
 Each route is loaded once. Earlier versions performed a redundant second direct load, which duplicated application traffic without proving client-navigation behavior. A future client-navigation check will compare a real link click against direct navigation instead.
+
+Use `delayMs` or `--delay` for rate-limited APIs and sensitive preproduction environments. The pause happens between route scans, never before the first route:
+
+```bash
+routeproof https://preprod.example.com --delay 500
+```
 
 ## Principles
 

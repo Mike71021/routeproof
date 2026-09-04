@@ -19,6 +19,10 @@ interface NetworkFailure {
   reason?: string;
 }
 
+function delay(milliseconds: number): Promise<void> {
+  return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
+}
+
 function safeFilename(route: string): string {
   const cleaned = route.replace(/^\/+/, "").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "");
   return cleaned || "home";
@@ -331,6 +335,7 @@ export async function audit(config: RouteProofConfig, options: AuditOptions = {}
         errors: routeFindings.filter((finding) => finding.severity === "error").length,
         warnings: routeFindings.filter((finding) => finding.severity === "warning").length,
       });
+      if (queue.length && config.delayMs > 0) await delay(config.delayMs);
     }
   } finally {
     await browser?.close();

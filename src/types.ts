@@ -56,6 +56,7 @@ export interface RouteProofConfig {
   maxDepth: number;
   maxRoutes: number;
   timeoutMs: number;
+  delayMs: number;
   exclude: string[];
   include: string[];
   expectedRoutes: string[];
