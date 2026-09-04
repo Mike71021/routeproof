@@ -4,6 +4,7 @@ export default defineConfig({
   baseUrl: "http://localhost:3000",
   maxDepth: 4,
   maxRoutes: 200,
+  delayMs: 250,
   exclude: ["/logout", "/api/*"],
   expectedRoutes: ["/", "/pricing", "/account/settings"],
   seedRoutes: ["/dashboard", "/account/settings"],
